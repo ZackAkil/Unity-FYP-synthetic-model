@@ -8,11 +8,11 @@ public class windZoneScript : MonoBehaviour {
 	public const int streetDirection = 0;
 	public const int streetWidth = 5;
 
-	public double windSpeed;
-	public double windDirection;
+	public float windSpeed;
+	public float windDirection;
 
-	public double globalWindSpeed;
-	public double globalWindDirection;
+	public float globalWindSpeed;
+	public float globalWindDirection;
 
 
 
@@ -22,18 +22,20 @@ public class windZoneScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
 	
 	}
 
 	//using global wind condition object to calculate wind speed within street
 	void calculateStreetWindSpeed (){
 
-		double gausian1 = 2^-(((globalWindDirection-windDirection)/streetWidth)^2);
-		double gausian2 = 2^-(((globalWindDirection-windDirection+180)/streetWidth)^2); 
-		double gausian3 = 2^-(((globalWindDirection-windDirection-180)/streetWidth)^2); 
-		double gausian4 = 2^-(((globalWindDirection-windDirection-369)/streetWidth)^2); 
+		float gausian1 = Mathf.Pow(2f,Mathf.Pow(-((globalWindDirection-windDirection)/streetWidth),2f));
+		float gausian2 = Mathf.Pow(2f,Mathf.Pow(-((globalWindDirection-windDirection+180f)/streetWidth),2f)); 
+		float gausian3 = Mathf.Pow(2f,Mathf.Pow(-((globalWindDirection-windDirection-180f)/streetWidth),2f)); 
+		float gausian4 = Mathf.Pow(2f,Mathf.Pow(-((globalWindDirection-windDirection-360f)/streetWidth),2f)); 
 
-		double[] gausian = {gausian1,gausian2,gausian3,gausian4};
+		float[] gausian = {gausian1,gausian2,gausian3,gausian4};
 
 		this.windSpeed = gausian.Max()*globalWindSpeed;
 			
