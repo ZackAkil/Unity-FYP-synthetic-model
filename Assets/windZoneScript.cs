@@ -44,6 +44,7 @@ public class windZoneScript : MonoBehaviour {
 	//using global wind condition object to calculate wind direction within street
 	void calculateStreetWindDirection (){
 
+		//test comment
 
 	}
 }
