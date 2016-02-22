@@ -3,9 +3,15 @@ using System.Collections;
 
 public class windZoneScript : MonoBehaviour {
 
-	// Use this for initialization
-	public int streetDirection = 0;
-	public int streetWidth = 5;
+
+	public const int streetDirection = 0;
+	public const int streetWidth = 5;
+
+	public double windSpeed;
+	public double windDirection;
+
+	public GameObject globalWind;
+
 
 	void Start () {
 	
@@ -14,5 +20,17 @@ public class windZoneScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	//using global wind condition object to calculate wind speed within street
+	void calculateStreetWindSpeed (){
+
+
+	}
+
+	//using global wind condition object to calculate wind direction within street
+	void calculateStreetWindDirection (){
+
+
 	}
 }
