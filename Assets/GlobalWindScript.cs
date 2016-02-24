@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class globalWindScript : MonoBehaviour {
+public class GlobalWindScript : MonoBehaviour {
 
 	public float windSpeed;
 	public float windDir;
