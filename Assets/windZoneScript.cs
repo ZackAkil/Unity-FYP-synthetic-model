@@ -2,21 +2,28 @@
 using System.Collections;
 using System.Linq;
 
-public class windZoneScript : MonoBehaviour {
+public class WindZoneScript : MonoBehaviour {
 
 
-	public const int streetDirection = 0;
-	public const int streetWidth = 5;
+	public const int streetDirection = 0; // 0 - 180
+	public const int streetWidth = 5; // 0 - 50
 
 	private float windSpeed;
-	private float windDirection;
+	private float windDir;
 
-	public GameObject gloablWind;
+	public GameObject globalWindObject;
+	public GlobalWindScript globalWindScript;
+
+	public float dataUpdateRate = 1.0f; // seconds
 
 
 
 	void Start () {
-	
+
+		// set wind script object 
+		globalWindScript = globalWindObject.GetComponent<GlobalWindScript>();
+
+		// set update rate of zones data
 		InvokeRepeating("UpdateWindData", 0f, 1.0f);
 	}
 
@@ -27,9 +34,23 @@ public class windZoneScript : MonoBehaviour {
 	
 	}
 
+	//Update wind attributes of object relative to teh global wind conditions
+
 	void UpdateWindData(){
 
 		Debug.Log("hello every second");
+
+		this.windSpeed = CalculateStreetWindSpeed(
+			globalWindScript.GetGlobalWindDir(),
+			globalWindScript.GetGlobalWindSpeed(),
+			streetDirection,
+			streetWidth);
+
+		this.windDir = CalculateStreetWindDirection(
+			globalWindScript.GetGlobalWindDir(),
+			globalWindScript.GetGlobalWindSpeed(),
+			streetDirection,
+			streetWidth);
 
 	}
 
