@@ -12,7 +12,7 @@ public class WindZoneScript : MonoBehaviour {
 	private float windDir;
 
 	public GameObject globalWindObject;
-	public GlobalWindScript globalWindScript;
+	private GlobalWindScript globalWindScript;
 
 	public float dataUpdateRate = 1.0f; // seconds
 
@@ -24,7 +24,7 @@ public class WindZoneScript : MonoBehaviour {
 		globalWindScript = globalWindObject.GetComponent<GlobalWindScript>();
 
 		// set update rate of zones data
-		InvokeRepeating("UpdateWindData", 0f, 1.0f);
+		InvokeRepeating("UpdateWindData", 0f, dataUpdateRate);
 	}
 
 	// Update is called once per frame
@@ -38,15 +38,15 @@ public class WindZoneScript : MonoBehaviour {
 
 	void UpdateWindData(){
 
-		Debug.Log("hello every second");
+		Debug.Log("hello every second - " + globalWindScript.GetGlobalWindDir());
 
-		this.windSpeed = CalculateStreetWindSpeed(
+		windSpeed = CalculateStreetWindSpeed(
 			globalWindScript.GetGlobalWindDir(),
 			globalWindScript.GetGlobalWindSpeed(),
 			streetDirection,
 			streetWidth);
 
-		this.windDir = CalculateStreetWindDirection(
+		windDir = CalculateStreetWindDirection(
 			globalWindScript.GetGlobalWindDir(),
 			globalWindScript.GetGlobalWindSpeed(),
 			streetDirection,
