@@ -45,8 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\globalWindScript.cs" />
-     <Compile Include="Assets\windZoneScript.cs" />
+     <Compile Include="Assets\GlobalWindScript.cs" />
+     <Compile Include="Assets\WindZoneScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
