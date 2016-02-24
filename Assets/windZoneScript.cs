@@ -54,8 +54,9 @@ public class WindZoneScript : MonoBehaviour {
 
 	}
 
-	//using global wind condition object to calculate wind speed within street
-
+	/*	using global wind condition object to calculate wind speed within street
+		wind speed is in range of 50 - 150
+	*/
 	static float CalculateStreetWindSpeed (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
 		float gausian1 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir)/streetWdth),2f));
@@ -69,8 +70,9 @@ public class WindZoneScript : MonoBehaviour {
 			
 	}
 
-	//using global wind condition object to calculate wind direction within street
-
+	/*	using global wind condition object to calculate wind direction within street
+		wind speed is in range of 0.04 - 0.14
+	*/
 	static float CalculateStreetWindDirection (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
 		float sig1 = (1/(1+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir+90)*streetWdth))))*180; 
