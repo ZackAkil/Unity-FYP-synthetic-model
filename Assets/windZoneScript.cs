@@ -8,16 +8,16 @@ public class windZoneScript : MonoBehaviour {
 	public const int streetDirection = 0;
 	public const int streetWidth = 5;
 
-	public float windSpeed;
-	public float windDirection;
+	private float windSpeed;
+	private float windDirection;
 
-	public float globalWindSpeed;
-	public float globalWindDirection;
+	public GameObject gloablWind;
 
 
 
 	void Start () {
 	
+		InvokeRepeating("UpdateWindData", 0f, 1.0f);
 	}
 
 	// Update is called once per frame
@@ -27,9 +27,15 @@ public class windZoneScript : MonoBehaviour {
 	
 	}
 
+	void UpdateWindData(){
+
+		Debug.Log("hello every second");
+
+	}
+
 	//using global wind condition object to calculate wind speed within street
 
-	static float calculateStreetWindSpeed (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
+	static float CalculateStreetWindSpeed (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
 		float gausian1 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir)/streetWdth),2f));
 		float gausian2 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir+180f)/streetWdth),2f)); 
@@ -44,7 +50,7 @@ public class windZoneScript : MonoBehaviour {
 
 	//using global wind condition object to calculate wind direction within street
 
-	static float calculateStreetWindDirection (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
+	static float CalculateStreetWindDirection (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
 		float sig1 = (1/(1+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir+90)*streetWdth))))*180; 
 		float sig2 = (1/(1+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-90)*streetWdth))))*180; 
