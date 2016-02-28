@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine.Assertions;
 
 public class WindZoneScript : MonoBehaviour {
 
@@ -38,8 +39,6 @@ public class WindZoneScript : MonoBehaviour {
 
 	void UpdateWindData(){
 
-		Debug.Log("hello every second - " + globalWindScript.GetGlobalWindDir());
-
 		windSpeed = CalculateStreetWindSpeed(
 			globalWindScript.GetGlobalWindDir(),
 			globalWindScript.GetGlobalWindSpeed(),
@@ -52,17 +51,25 @@ public class WindZoneScript : MonoBehaviour {
 			streetDirection,
 			streetWidth);
 
+		Debug.Log("wind speed - " + windSpeed + ", wind direction - "+ windDir);
+
 	}
 
 	/*	using global wind condition object to calculate wind speed within street
-		wind speed is in range of 50 - 150
+		street width is in range of 50 - 150
 	*/
 	static float CalculateStreetWindSpeed (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
-		float gausian1 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir)/streetWdth),2f));
-		float gausian2 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir+180f)/streetWdth),2f)); 
-		float gausian3 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir-180f)/streetWdth),2f)); 
-		float gausian4 = Mathf.Pow(2f,Mathf.Pow(-((gWindDir-streetDir-360f)/streetWdth),2f)); 
+		float scaledStreetWidth = (2f * streetWdth) + 50f;
+
+		Debug.Log("scaled width = " + scaledStreetWidth);
+
+		Assert.IsTrue((scaledStreetWidth >= 50)&&(scaledStreetWidth <= 150));
+
+		float gausian1 = Mathf.Pow(2f,-Mathf.Pow(((gWindDir-streetDir)/scaledStreetWidth),2f));
+		float gausian2 = Mathf.Pow(2f,-Mathf.Pow(((gWindDir-streetDir+180f)/scaledStreetWidth),2f)); 
+		float gausian3 = Mathf.Pow(2f,-Mathf.Pow(((gWindDir-streetDir-180f)/scaledStreetWidth),2f)); 
+		float gausian4 = Mathf.Pow(2f,-Mathf.Pow(((gWindDir-streetDir-360f)/scaledStreetWidth),2f)); 
 
 		float[] gausian = {gausian1,gausian2,gausian3,gausian4};
 
@@ -71,14 +78,20 @@ public class WindZoneScript : MonoBehaviour {
 	}
 
 	/*	using global wind condition object to calculate wind direction within street
-		wind speed is in range of 0.04 - 0.14
+		street width is in range of 0.04 - 0.14
 	*/
 	static float CalculateStreetWindDirection (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
-		float sig1 = (1/(1+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir+90)*streetWdth))))*180; 
-		float sig2 = (1/(1+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-90)*streetWdth))))*180; 
-		float sig3 = (1/(1+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-270)*streetWdth))))*180; 
+		float scaledStreetWidth = ((0.1f/50f) * streetWdth) + 0.04f;
 
-		return (sig1 + sig2 + sig3 - 180 + streetDir)%360;
+		Debug.Log("scaled width = " + scaledStreetWidth);
+
+		Assert.IsTrue((scaledStreetWidth >= 0.04)&&(scaledStreetWidth <= 0.14));
+
+		float sig1 = (1f/(1f+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir+90f)*scaledStreetWidth))))*180f; 
+		float sig2 = (1f/(1f+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-90f)*scaledStreetWidth))))*180f; 
+		float sig3 = (1f/(1f+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-270f)*scaledStreetWidth))))*180f; 
+
+		return (sig1 + sig2 + sig3 - 180f + streetDir)%360f;
 	}
 }

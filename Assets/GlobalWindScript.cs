@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GlobalWindScript : MonoBehaviour {
 
-	private float windSpeed = 0;
-	private float windDir = 0;
+	public float windSpeed = 0;
+	public float windDir = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -21,15 +21,15 @@ public class GlobalWindScript : MonoBehaviour {
 
 	void ChangeWind(){
 
-		windSpeed ++;
-		windDir ++;
+		this.windSpeed +=5;
+		this.windDir +=15;
 
-		if(windDir>360)
-			windDir = 0;
+		if(this.windDir>360)
+			this.windDir = 0;
+		
+		if(this.windSpeed>50)
+			this.windSpeed = 0;
 
-
-		if(windSpeed>50)
-			windSpeed = 0;
 	}
 
 	public float GetGlobalWindSpeed(){
