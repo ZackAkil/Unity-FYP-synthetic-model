@@ -32,7 +32,7 @@ public class WindZoneScript : MonoBehaviour {
 	void Update () {
 
 
-	
+
 	}
 
 	//Update wind attributes of object relative to teh global wind conditions
@@ -82,7 +82,7 @@ public class WindZoneScript : MonoBehaviour {
 		float[] gausian = {gausian1,gausian2,gausian3,gausian4};
 
 		return gausian.Max()*gWindSpeed;
-			
+
 	}
 
 	/*	using global wind condition object to calculate wind direction within street
