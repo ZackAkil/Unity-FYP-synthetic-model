@@ -26,9 +26,10 @@ public class windVisScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float easeArrowDir = ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,1f);
 
-		currentArrowDir = (easeArrowDir + initialArrowDir)%360;
+		easeArrowDir = ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,1f);
+
+		currentArrowDir = easeArrowDir + initialArrowDir;
 
 		transform.localEulerAngles = new Vector3(0,0,currentArrowDir);
 	
