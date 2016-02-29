@@ -15,20 +15,20 @@ public class windVisScript : MonoBehaviour {
 	private float startTime = 0f;
 	private float durationTime = 0f;
 
+	private float easeArrowDir = 0;
 
-	// Use this for initialization
+
 	void Start () {
 	
 		startTime = Time.time;
 
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 
-		float easeArrowDir = ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,1f);
+		easeArrowDir = ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,1f);
 
-		currentArrowDir = (easeArrowDir + initialArrowDir)%360;
+		currentArrowDir = easeArrowDir + initialArrowDir;
 
 		transform.localEulerAngles = new Vector3(0,0,currentArrowDir);
 	
@@ -37,11 +37,12 @@ public class windVisScript : MonoBehaviour {
 	public void setNewArrowPosition(float newPosition){
 
 		targetArrowDir = newPosition;
-//
+
 		initialArrowDir = currentArrowDir;
-//
-//		Debug.Log("target direction : " + targetArrowDir + "initial direction : "+ initialArrowDir);
-//
+
+		if ((targetArrowDir - initialArrowDir) > 180)
+			targetArrowDir -= 360;
+
 		startTime = Time.time;
 
 	}
