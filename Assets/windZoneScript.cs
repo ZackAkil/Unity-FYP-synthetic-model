@@ -70,8 +70,6 @@ public class WindZoneScript : MonoBehaviour {
 
 		float scaledStreetWidth = (2f * streetWdth) + 50f;
 
-		Debug.Log("scaled width = " + scaledStreetWidth);
-
 		Assert.IsTrue((scaledStreetWidth >= 50)&&(scaledStreetWidth <= 150));
 
 		float gausian1 = Mathf.Pow(2f,-Mathf.Pow(((gWindDir-streetDir)/scaledStreetWidth),2f));
@@ -91,8 +89,6 @@ public class WindZoneScript : MonoBehaviour {
 	static float CalculateStreetWindDirection (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
 		float scaledStreetWidth = ((0.1f/50f) * streetWdth) + 0.04f;
-
-		Debug.Log("scaled width = " + scaledStreetWidth);
 
 		Assert.IsTrue((scaledStreetWidth >= 0.04)&&(scaledStreetWidth <= 0.14));
 
