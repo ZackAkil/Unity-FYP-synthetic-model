@@ -55,7 +55,11 @@ public class WindZoneScript : MonoBehaviour {
 			streetDirection,
 			streetWidth);
 
-		Debug.Log("wind speed - " + windSpeed + ", wind direction - "+ windDir);
+		Debug.Log("wind speed : " + windSpeed + ", wind direction : "+ windDir);
+
+		string[] vals = {tempGWindDir.ToString(),tempGWindSpeed.ToString(),windDir.ToString(),windSpeed.ToString()};
+
+		logValuesToCSV(vals,logFileName);
 
 	}
 
@@ -102,7 +106,7 @@ public class WindZoneScript : MonoBehaviour {
 	/*
 	 save array of vals to CSV file in project directory 
 	*/
-	static void logValuesToCSV(ArrayList<float> vals, string fileName){
+	static void logValuesToCSV(string[] vals, string fileName){
 
 		System.IO.File.AppendAllText(fileName, "\n" +
 			string.Join(",",vals)
