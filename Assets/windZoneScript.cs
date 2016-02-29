@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 public class WindZoneScript : MonoBehaviour {
 
 	public string logFileName = "windZone1.csv";
+	public bool logDataToFile = true;
 
 	public const int streetDirection = 0; // 0 - 180
 	public const int streetWidth = 5; // 0 - 50
@@ -17,8 +18,6 @@ public class WindZoneScript : MonoBehaviour {
 	private GlobalWindScript globalWindScript;
 
 	public float dataUpdateRate = 1.0f; // seconds
-
-
 
 	void Start () {
 
@@ -57,9 +56,10 @@ public class WindZoneScript : MonoBehaviour {
 
 		Debug.Log("wind speed : " + windSpeed + ", wind direction : "+ windDir);
 
-		string[] vals = {tempGWindDir.ToString(),tempGWindSpeed.ToString(),windDir.ToString(),windSpeed.ToString()};
-
-		logValuesToCSV(vals,logFileName);
+		if(logDataToFile){
+			string[] vals = {tempGWindDir.ToString(),tempGWindSpeed.ToString(),windDir.ToString(),windSpeed.ToString()};
+			logValuesToCSV(vals,logFileName);
+		}
 
 	}
 
