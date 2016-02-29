@@ -22,17 +22,13 @@ public class GlobalWindScript : MonoBehaviour {
 	void ChangeWind(){
 
 		this.windSpeed +=5;
-		//this.windDir +=15;
-
-		windDir = Random.value*360;
+		this.windDir +=15;
 
 		if(this.windDir>360)
 			this.windDir = 0;
 		
 		if(this.windSpeed>50)
 			this.windSpeed = 0;
-
-
 
 	}
 
