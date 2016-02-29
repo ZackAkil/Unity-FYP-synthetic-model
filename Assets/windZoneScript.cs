@@ -61,7 +61,8 @@ public class WindZoneScript : MonoBehaviour {
 			logValuesToCSV(vals,logFileName);
 		}
 
-		transform.GetChild(0).GetComponent<windVisScript>().setNewArrowPosition(windDir);
+		transform.GetChild(0).GetComponent<windVisScript>().setNewWindDir(windDir);
+		transform.GetChild(0).GetComponent<windVisScript>().setNewWindSpeed(windSpeed);
 
 	}
 
