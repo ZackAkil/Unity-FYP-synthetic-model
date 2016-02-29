@@ -9,6 +9,9 @@ public class windVisScript : MonoBehaviour {
 	private float currenArrowScale = 1f;
 	private float currentArrowDir = 0f;
 
+	private float initialArrowScale = 1f;
+	private float initialArrowDir = 0f;
+
 	private float startTime = 0f;
 	private float durationTime = 0f;
 
@@ -23,10 +26,24 @@ public class windVisScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float newRotVal = ElasticEaseOut(Time.time - startTime,0f,180f,5f);
+		float easeArrowDir = ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,1f);
 
-		transform.rotation = Quaternion.Euler(0,0,newRotVal);
+		currentArrowDir = (easeArrowDir + initialArrowDir)%360;
+
+		transform.localEulerAngles = new Vector3(0,0,currentArrowDir);
 	
+	}
+
+	public void setNewArrowPosition(float newPosition){
+
+		targetArrowDir = newPosition;
+//
+		initialArrowDir = currentArrowDir;
+//
+//		Debug.Log("target direction : " + targetArrowDir + "initial direction : "+ initialArrowDir);
+//
+		startTime = Time.time;
+
 	}
 
 	/// <summary>
@@ -38,7 +55,7 @@ public class windVisScript : MonoBehaviour {
 	/// <param name="c">Final value.</param>
 	/// <param name="d">Duration of animation.</param>
 	/// <returns>The correct value.</returns>
-	public static float ElasticEaseOut( float t, float b, float c, float d )
+	private static float ElasticEaseOut( float t, float b, float c, float d )
 	{
 		if ( ( t /= d ) == 1 )
 			return b + c;

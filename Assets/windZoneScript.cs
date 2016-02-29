@@ -59,6 +59,9 @@ public class WindZoneScript : MonoBehaviour {
 		if(logDataToFile){
 			string[] vals = {tempGWindDir.ToString(),tempGWindSpeed.ToString(),windDir.ToString(),windSpeed.ToString()};
 			logValuesToCSV(vals,logFileName);
+		
+			transform.GetChild(0).GetComponent<windVisScript>().setNewArrowPosition(windDir);
+
 		}
 
 	}
