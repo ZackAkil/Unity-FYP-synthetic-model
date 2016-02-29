@@ -15,6 +15,7 @@ public class windVisScript : MonoBehaviour {
 	private float startTime = 0f;
 	private float durationTime = 0f;
 
+	private float easeArrowDir;
 
 	// Use this for initialization
 	void Start () {
