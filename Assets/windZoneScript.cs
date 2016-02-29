@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 
 public class WindZoneScript : MonoBehaviour {
 
+	public string logFileName = "windZone1.csv";
 
 	public const int streetDirection = 0; // 0 - 180
 	public const int streetWidth = 5; // 0 - 50
@@ -39,15 +40,18 @@ public class WindZoneScript : MonoBehaviour {
 
 	void UpdateWindData(){
 
+		float tempGWindDir = globalWindScript.GetGlobalWindDir();
+		float tempGWindSpeed = globalWindScript.GetGlobalWindSpeed();
+
 		windSpeed = CalculateStreetWindSpeed(
-			globalWindScript.GetGlobalWindDir(),
-			globalWindScript.GetGlobalWindSpeed(),
+			tempGWindDir,
+			tempGWindSpeed,
 			streetDirection,
 			streetWidth);
 
 		windDir = CalculateStreetWindDirection(
-			globalWindScript.GetGlobalWindDir(),
-			globalWindScript.GetGlobalWindSpeed(),
+			tempGWindDir,
+			tempGWindSpeed,
 			streetDirection,
 			streetWidth);
 
@@ -94,4 +98,16 @@ public class WindZoneScript : MonoBehaviour {
 
 		return (sig1 + sig2 + sig3 - 180f + streetDir)%360f;
 	}
+
+	/*
+	 save array of vals to CSV file in project directory 
+	*/
+	static void logValuesToCSV(ArrayList<float> vals, string fileName){
+
+		System.IO.File.AppendAllText(fileName, "\n" +
+			string.Join(",",vals)
+		);
+
+	}
+
 }
