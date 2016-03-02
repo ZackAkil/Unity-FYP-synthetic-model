@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{13A367CE-021A-D3D7-F8F1-3BF69B58DD0A}</ProjectGuid>
+    <ProjectGuid>{8D3E7E48-0905-CD78-01C8-C001EF9E3173}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -48,7 +48,6 @@
      <Compile Include="Assets\GlobalWindScript.cs" />
      <Compile Include="Assets\WindStreetScript.cs" />
      <Compile Include="Assets\windVisScript.cs" />
-     <Compile Include="Assets\windZoneScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -61,8 +61,8 @@ public class WindStreetScript : MonoBehaviour {
 			logValuesToCSV(vals,logFileName);
 		}
 
-		transform.GetChild(0).GetComponent<windVisScript>().setNewWindDir(windDir);
-		transform.GetChild(0).GetComponent<windVisScript>().setNewWindSpeed(windSpeed);
+		//set wind data vis to new values
+		transform.GetChild(0).GetComponent<windVisScript>().setArrow(windSpeed,windDir);
 
 	}
 

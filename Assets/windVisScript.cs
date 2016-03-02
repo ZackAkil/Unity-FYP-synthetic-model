@@ -40,7 +40,7 @@ public class windVisScript : MonoBehaviour {
 	
 	}
 
-	public void setNewWindDir(float newDir){
+	private void setNewWindDir(float newDir){
 
 		targetArrowDir = newDir;
 
@@ -52,11 +52,24 @@ public class windVisScript : MonoBehaviour {
 		startTime = Time.time;
 	}
 
-	public void setNewWindSpeed(float newSpeed){
+	private void setNewWindSpeed(float newSpeed){
 
 		targetArrowScale = (newSpeed/150f)+0.1f;
 
 		initialArrowScale = currentArrowScale;
+
+	}
+
+	/// <summary>
+	/// Set arrow to new shape based on wind speed and direction
+	/// </summary>
+	/// <param name="newSpeed">New speed (0 - 50).</param>
+	/// <param name="newDir">New direction (0 - 360).</param>
+	/// <returns>Void.</returns>
+	public void setArrow(float newSpeed, float newDir){
+
+		setNewWindSpeed(newSpeed);
+		setNewWindDir(newDir);
 
 	}
 
