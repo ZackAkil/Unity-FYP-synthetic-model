@@ -8,8 +8,8 @@ public class WindStreetScript : MonoBehaviour {
 	public string logFileName = "windZone1.csv";
 	public bool logDataToFile = true;
 
-	public const int streetDirection = 0; // 0 - 180
-	public const int streetWidth = 5; // 0 - 50
+	public int streetDirection = 0; // 0 - 180
+	public int streetWidth = 5; // 0 - 50
 
 	private float windSpeed;
 	private float windDir;
@@ -17,7 +17,7 @@ public class WindStreetScript : MonoBehaviour {
 	public GameObject globalWindObject;
 	private GlobalWindScript globalWindScript;
 
-	public float dataUpdateRate = 1.0f; // seconds
+	public float dataUpdateRate = 3.0f; // seconds
 
 	void Start () {
 
@@ -28,12 +28,6 @@ public class WindStreetScript : MonoBehaviour {
 		InvokeRepeating("UpdateWindData", 0.1f, dataUpdateRate);
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-
-
-	}
 
 	//Update wind attributes of object relative to teh global wind conditions
 
@@ -55,6 +49,9 @@ public class WindStreetScript : MonoBehaviour {
 			streetWidth);
 
 		Debug.Log("wind speed : " + windSpeed + ", wind direction : "+ windDir);
+
+		Assert.IsTrue(windDir >= 0);
+		Assert.IsTrue(windDir <= 360);
 
 		if(logDataToFile){
 			string[] vals = {tempGWindDir.ToString(),tempGWindSpeed.ToString(),windDir.ToString(),windSpeed.ToString()};
@@ -91,15 +88,18 @@ public class WindStreetScript : MonoBehaviour {
 	*/
 	static float CalculateStreetWindDirection (float gWindDir, float gWindSpeed, float streetDir, float streetWdth){
 
-		float scaledStreetWidth = ((0.1f/50f) * streetWdth) + 0.04f;
+		float scaledStreetWidth = 0.14f - ((0.1f/50f) * streetWdth);
 
-		Assert.IsTrue((scaledStreetWidth >= 0.04)&&(scaledStreetWidth <= 0.14));
+		Assert.IsTrue((scaledStreetWidth >= 0.03)&&(scaledStreetWidth <= 0.15));
 
 		float sig1 = (1f/(1f+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir+90f)*scaledStreetWidth))))*180f; 
 		float sig2 = (1f/(1f+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-90f)*scaledStreetWidth))))*180f; 
 		float sig3 = (1f/(1f+ Mathf.Pow(Mathf.Exp(1),(-(gWindDir-streetDir-270f)*scaledStreetWidth))))*180f; 
 
-		return (sig1 + sig2 + sig3 - 180f + streetDir)%360f;
+		return MyMaths.mod((sig1 + sig2 + sig3 - 180f + streetDir),360f);
+
+		return 0f;
+
 	}
 
 	/*
@@ -112,5 +112,8 @@ public class WindStreetScript : MonoBehaviour {
 		);
 
 	}
+
+
+
 
 }

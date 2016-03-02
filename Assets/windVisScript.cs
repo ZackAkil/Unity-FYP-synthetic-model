@@ -13,7 +13,7 @@ public class windVisScript : MonoBehaviour {
 	private float initialArrowDir = 0f;
 
 	private float startTime = 0f;
-	private float durationTime = 0f;
+	public float durationTime = 3.0f;
 
 	private float easeArrowDir = 0;
 
@@ -26,13 +26,13 @@ public class windVisScript : MonoBehaviour {
 
 	void Update () {
 
-		float easeArrowScale = CubicEaseOut(Time.time - startTime,0,targetArrowScale- initialArrowScale,1f);
+		float easeArrowScale = MyMaths.CubicEaseOut(Time.time - startTime,0,targetArrowScale- initialArrowScale,durationTime);
 
 		currentArrowScale =  easeArrowScale + initialArrowScale;
 
 		transform.localScale = new Vector3 (currentArrowScale,currentArrowScale,1f);
 
-		easeArrowDir = ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,1f);
+		easeArrowDir = MyMaths.ElasticEaseOut(Time.time - startTime,0,targetArrowDir-initialArrowDir,durationTime);
 
 		currentArrowDir = easeArrowDir + initialArrowDir;
 
@@ -64,48 +64,23 @@ public class windVisScript : MonoBehaviour {
 	/// Set arrow to new shape based on wind speed and direction
 	/// </summary>
 	/// <param name="newSpeed">New speed (0 - 50).</param>
-	/// <param name="newDir">New direction (0 - 360).</param>
+	/// <param name="newDir">New direction (0 - 359).</param>
 	/// <returns>Void.</returns>
 	public void setArrow(float newSpeed, float newDir){
 
 		setNewWindSpeed(newSpeed);
+
+		float nDir = MyMaths.mod(newDir, 360);
+		float oDir = MyMaths.mod(currentArrowDir, 360);
+
+		float diff = 360 - oDir;
+		float sum = diff + nDir;
+
+		newDir = oDir + sum;
+
+
 		setNewWindDir(newDir);
 
-	}
-
-	/// <summary>
-	/// Easing equation function for an elastic (exponentially decaying sine wave) easing out: 
-	/// decelerating from zero velocity.
-	/// </summary>
-	/// <param name="t">Current time in seconds.</param>
-	/// <param name="b">Starting value.</param>
-	/// <param name="c">Final value.</param>
-	/// <param name="d">Duration of animation.</param>
-	/// <returns>The correct value.</returns>
-	private static float ElasticEaseOut( float t, float b, float c, float d )
-	{
-		if ( ( t /= d ) == 1 )
-			return b + c;
-
-		float p = d * .3f;
-		float s = p / 4f;
-
-		return ( c * Mathf.Pow( 2f, -10f * t ) * Mathf.Sin( ( t * d - s ) * ( 2 * Mathf.PI ) / p ) + c + b );
-	}
-
-
-	/// <summary>
-	/// Easing equation function for a cubic (t^3) easing out: 
-	/// decelerating from zero velocity.
-	/// </summary>
-	/// <param name="t">Current time in seconds.</param>
-	/// <param name="b">Starting value.</param>
-	/// <param name="c">Final value.</param>
-	/// <param name="d">Duration of animation.</param>
-	/// <returns>The correct value.</returns>
-	public static float CubicEaseOut( float t, float b, float c, float d )
-	{
-		return c * ( ( t = t / d - 1f ) * t * t + 1f ) + b;
 	}
 
 }
