@@ -12,12 +12,6 @@ public class GlobalWindScript : MonoBehaviour {
 		InvokeRepeating("ChangeWind", 0f, 3.0f);
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 
 	void ChangeWind(){
 

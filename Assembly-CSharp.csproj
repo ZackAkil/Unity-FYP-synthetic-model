@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\GlobalWindScript.cs" />
      <Compile Include="Assets\MyMaths.cs" />
+     <Compile Include="Assets\StreetRenderScript.cs" />
      <Compile Include="Assets\WindStreetScript.cs" />
      <Compile Include="Assets\windVisScript.cs" />
  <Reference Include="UnityEngine.UI">

@@ -26,6 +26,8 @@ public class WindStreetScript : MonoBehaviour {
 
 		// set update rate of zones data
 		InvokeRepeating("UpdateWindData", 0.1f, dataUpdateRate);
+
+		transform.GetChild(1).GetComponent<StreetRenderScript>().setStreetRender(streetWidth,streetDirection);
 	}
 
 
