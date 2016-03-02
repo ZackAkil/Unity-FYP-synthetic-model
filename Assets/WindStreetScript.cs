@@ -14,7 +14,6 @@ public class WindStreetScript : MonoBehaviour {
 	private float windSpeed;
 	private float windDir;
 
-	public GameObject globalWindObject;
 	private GlobalWindScript globalWindScript;
 
 	public float dataUpdateRate = 3.0f; // seconds
@@ -22,7 +21,7 @@ public class WindStreetScript : MonoBehaviour {
 	void Start () {
 
 		// set wind script object 
-		globalWindScript = globalWindObject.GetComponent<GlobalWindScript>();
+		globalWindScript = GameObject.FindGameObjectWithTag("GlobalWind").GetComponent<GlobalWindScript>();
 
 		// set update rate of zones data
 		InvokeRepeating("UpdateWindData", 0.1f, dataUpdateRate);
@@ -50,7 +49,7 @@ public class WindStreetScript : MonoBehaviour {
 			streetDirection,
 			streetWidth);
 
-		Debug.Log("wind speed : " + windSpeed + ", wind direction : "+ windDir);
+		//Debug.Log("wind speed : " + windSpeed + ", wind direction : "+ windDir);
 
 		Assert.IsTrue(windDir >= 0);
 		Assert.IsTrue(windDir <= 360);
