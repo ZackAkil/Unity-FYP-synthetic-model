@@ -25,7 +25,7 @@ public class WindStreetScript : MonoBehaviour {
 		globalWindScript = globalWindObject.GetComponent<GlobalWindScript>();
 
 		// set update rate of zones data
-		InvokeRepeating("UpdateWindData", 0f, dataUpdateRate);
+		InvokeRepeating("UpdateWindData", 0.1f, dataUpdateRate);
 	}
 
 	// Update is called once per frame

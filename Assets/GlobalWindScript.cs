@@ -21,18 +21,22 @@ public class GlobalWindScript : MonoBehaviour {
 
 	void ChangeWind(){
 
-		this.windSpeed +=5;
+		//set wind data vis to new values
+		transform.GetChild(0).GetComponent<windVisScript>().setArrow(windSpeed,windDir);
+
+		windSpeed +=5;
 		//this.windDir +=15;
 
 		windDir = Random.value*360;
 
-		if(this.windDir>360)
-			this.windDir = 0;
+		if(windDir>360)
+			windDir = 0;
 		
-		if(this.windSpeed>50)
-			this.windSpeed = 0;
+		if(windSpeed>50)
+			windSpeed = 0;
 
-
+		//set wind data vis to new values
+		transform.GetChild(0).GetComponent<windVisScript>().setArrow(windSpeed,windDir);
 
 	}
 
