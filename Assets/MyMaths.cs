@@ -24,8 +24,8 @@ using System.Collections;
 		/// <param name="c">Final value.</param>
 		/// <param name="d">Duration of animation.</param>
 		/// <returns>The correct value.</returns>
-		public static float ElasticEaseOut( float t, float b, float c, float d )
-		{
+		public static float ElasticEaseOut( float t, float b, float c, float d ){
+		
 			if ( ( t /= d ) == 1 )
 				return b + c;
 
@@ -45,9 +45,15 @@ using System.Collections;
 		/// <param name="c">Final value.</param>
 		/// <param name="d">Duration of animation.</param>
 		/// <returns>The correct value.</returns>
-		public static float CubicEaseOut( float t, float b, float c, float d )
-		{
+		public static float CubicEaseOut( float t, float b, float c, float d ){
+		
 			return c * ( ( t = t / d - 1f ) * t * t + 1f ) + b;
+		}
+
+
+		public static float Remap (float value, float from1, float to1, float from2, float to2) {
+		
+		return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
 		}
 	}
 

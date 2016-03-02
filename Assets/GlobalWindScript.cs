@@ -23,12 +23,12 @@ public class GlobalWindScript : MonoBehaviour {
 
 
 		//windSpeed +=5;
-		windDir +=90;
+		//windDir = (windDir==45)? 315 : 45 ;
 
-		//windDir = Random.value*360;
+		windDir = Random.value*360;
 
-		if(windDir>=360)
-		windDir = windDir%360;
+
+		//windDir = MyMaths.mod(windDir, 360);
 		
 //		if(windSpeed>50)
 //			windSpeed = 0;

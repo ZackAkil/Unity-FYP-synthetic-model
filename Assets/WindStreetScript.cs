@@ -98,7 +98,6 @@ public class WindStreetScript : MonoBehaviour {
 
 		return MyMaths.mod((sig1 + sig2 + sig3 - 180f + streetDir),360f);
 
-		return 0f;
 
 	}
 

@@ -17,6 +17,8 @@ public class windVisScript : MonoBehaviour {
 
 	private float easeArrowDir = 0;
 
+	float realArrowDirectiion;
+
 
 	void Start () {
 	
@@ -36,7 +38,9 @@ public class windVisScript : MonoBehaviour {
 
 		currentArrowDir = easeArrowDir + initialArrowDir;
 
-		transform.localEulerAngles = new Vector3(0,0,currentArrowDir);
+		float result = MyMaths.Remap(currentArrowDir,0,360,360,0);
+
+		transform.localEulerAngles = new Vector3(0,0,result);
 	
 	}
 
@@ -46,8 +50,11 @@ public class windVisScript : MonoBehaviour {
 
 		initialArrowDir = currentArrowDir;
 
-		if ((targetArrowDir - initialArrowDir) > 180)
+		if ((targetArrowDir - initialArrowDir) > 180){
 			targetArrowDir -= 360;
+		}else if((targetArrowDir - initialArrowDir) < -180){
+			targetArrowDir += 360;
+		}
 
 		startTime = Time.time;
 	}
@@ -70,14 +77,13 @@ public class windVisScript : MonoBehaviour {
 
 		setNewWindSpeed(newSpeed);
 
-		float nDir = MyMaths.mod(newDir, 360);
-		float oDir = MyMaths.mod(currentArrowDir, 360);
-
-		float diff = 360 - oDir;
-		float sum = diff + nDir;
-
-		newDir = oDir + sum;
-
+//		float nDir = MyMaths.mod(newDir, 360);
+//		float oDir = MyMaths.mod(currentArrowDir, 360);
+//
+//		float diff = 360 - oDir;
+//		float sum = diff + nDir;
+//
+//		newDir = oDir + sum;
 
 		setNewWindDir(newDir);
 
