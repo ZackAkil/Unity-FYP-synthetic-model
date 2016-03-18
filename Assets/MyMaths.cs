@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-	public class MyMaths : MonoBehaviour
+	public class MyMaths 
 	{
 		/// <summary>
 		/// Prefered modulo function which works for negative values

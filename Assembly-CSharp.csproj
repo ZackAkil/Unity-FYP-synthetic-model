@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ApiCom.cs" />
      <Compile Include="Assets\GlobalWindScript.cs" />
      <Compile Include="Assets\MyMaths.cs" />
      <Compile Include="Assets\StreetRenderScript.cs" />
