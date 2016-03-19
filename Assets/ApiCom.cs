@@ -7,16 +7,26 @@ using System.Xml.Linq;
 	{
 
 		public string configFileName ="api_config.xml";
-		private string apiKey = "";
+		private string apiKey;
+		private string apiRoot;
+		private string stationSubmitPath;
+		private string scoutSubmitPath;
 
-		public ApiCom ()
-		{
+		public ApiCom (){
 
-			XDocument doc = XDocument.Load(configFileName);
+			XElement doc = XDocument.Load(configFileName).Element(XName.Get("apiConfig"));
 			apiKey = doc.Element(XName.Get("apiKey")).Value;
+			apiRoot = doc.Element(XName.Get("apiRoot")).Value;
+			stationSubmitPath = doc.Element(XName.Get("stationSubmitPath")).Value;
+			scoutSubmitPath = doc.Element(XName.Get("scoutSubmitPath")).Value;
 
-		Debug.Log(apiKey);
+			Debug.Log(apiRoot+stationSubmitPath);
+		}
 
+		public bool submitScoutData(){
+
+
+			return true;
 		}
 		
 
