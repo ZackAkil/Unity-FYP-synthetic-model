@@ -6,7 +6,6 @@ public class GlobalWindScript : MonoBehaviour {
 	public float windSpeed = 50;
 	public float windDir = 0;
 
-	// Use this for initialization
 	void Start () {
 
 		InvokeRepeating("ChangeWind", 0f, 3.0f);
@@ -17,19 +16,10 @@ public class GlobalWindScript : MonoBehaviour {
 
 	void ChangeWind(){
 
-
-		//windSpeed +=5;
-		//windDir = (windDir==45)? 315 : 45 ;
-
 		windDir = Random.value*360;
 
+		//Debug.Log("gwind: " + windDir);
 
-		//windDir = MyMaths.mod(windDir, 360);
-		
-//		if(windSpeed>50)
-//			windSpeed = 0;
-		Debug.Log("gwind: " + windDir);
-		//set wind data vis to new values
 		transform.GetChild(0).GetComponent<windVisScript>().setArrow(windSpeed,windDir);
 
 	}
@@ -42,5 +32,19 @@ public class GlobalWindScript : MonoBehaviour {
 	public float GetGlobalWindDir(){
 
 		return windDir;
+	}
+
+	void Update(){
+
+
+		if (Input.GetKeyDown("space")){
+			Vector3 pos = Input.mousePosition;
+			pos.z = 10;
+			pos = Camera.main.ScreenToWorldPoint(pos);
+			Debug.Log(pos);
+		}
+
+
+
 	}
 }
