@@ -3,9 +3,11 @@ using System.Collections;
 
 public class ScoutDataCollectorScript : MonoBehaviour {
 
+	ApiCom api;
 	// Use this for initialization
 	void Start () {
 	
+		api = new ApiCom();
 	}
 	
 	// Update is called once per frame
@@ -14,6 +16,16 @@ public class ScoutDataCollectorScript : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		Debug.Log("scout data fire");
+
+		Vector3 pos = Input.mousePosition;
+		pos.z = 10;
+		pos = Camera.main.ScreenToWorldPoint(pos);
+
+
+
+		Debug.Log("scout data fire at :" + pos.ToString() );
 	}
+
+
+
 }

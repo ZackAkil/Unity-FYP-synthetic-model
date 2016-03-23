@@ -10,7 +10,6 @@ public class GlobalWindScript : MonoBehaviour {
 
 		InvokeRepeating("ChangeWind", 0f, 3.0f);
 
-		ApiCom connection = new ApiCom();
 	
 	}
 

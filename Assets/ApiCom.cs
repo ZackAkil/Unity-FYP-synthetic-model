@@ -28,8 +28,6 @@ using System.Xml.Linq;
 
 			return true;
 		}
-		
-
 
 	}
 
