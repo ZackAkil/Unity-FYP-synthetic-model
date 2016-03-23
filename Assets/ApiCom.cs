@@ -37,14 +37,7 @@ using System.IO;
 		data.longitude = longitude;
 		data.latitude = latitude;
 
-	
-		WWWForm form = new WWWForm();
-		form.AddField( "apiKey", this.apiKey );
-		form.AddField( "dateTimeCollected", data.dateTimeCollected.ToString() );
-		form.AddField( "windSpeed", windSpeed.ToString() );
-		form.AddField( "windDirection", windDirection.ToString() );
-		form.AddField( "longitude", longitude.ToString() );
-		form.AddField( "latitude", latitude.ToString() );
+		WWWForm form = data.getPostData();
 
 		WWW postRequest = new WWW( apiRoot + scoutSubmitPath, form );
 
