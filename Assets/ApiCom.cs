@@ -2,6 +2,9 @@
 using System;
 using System.Xml.Linq;
 using System.Net;
+using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 
 	public class ApiCom
@@ -34,10 +37,27 @@ using System.Net;
 		data.longitude = longitude;
 		data.latitude = latitude;
 
-		WebRequest request = WebRequest.Create(apiRoot+scoutSubmitPath);
+	
+		WWWForm form = new WWWForm();
+		form.AddField( "apiKey", this.apiKey );
+		form.AddField( "dateTimeCollected", data.dateTimeCollected.ToString() );
+		form.AddField( "windSpeed", windSpeed.ToString() );
+		form.AddField( "windDirection", windDirection.ToString() );
+		form.AddField( "longitude", longitude.ToString() );
+		form.AddField( "latitude", latitude.ToString() );
 
-			return true;
+		WWW postRequest = new WWW( apiRoot + scoutSubmitPath, form );
+
+		if (!string.IsNullOrEmpty(postRequest.error)) {
+			Debug.Log(postRequest.error);
 		}
+		else {
+			Debug.Log("Finished submiting scout data");
+		}
+			
+		return true;
+
 
 	}
+}
 

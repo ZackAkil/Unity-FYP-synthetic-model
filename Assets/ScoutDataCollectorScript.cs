@@ -21,7 +21,7 @@ public class ScoutDataCollectorScript : MonoBehaviour {
 		pos.z = 10;
 		pos = Camera.main.ScreenToWorldPoint(pos);
 
-
+		api.submitScoutData(pos.x,pos.y,15,150);
 
 		Debug.Log("scout data fire at :" + pos.ToString() );
 	}
