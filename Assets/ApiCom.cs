@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Xml.Linq;
+using System.Net;
 
 
 	public class ApiCom
@@ -23,8 +24,17 @@ using System.Xml.Linq;
 			Debug.Log(apiRoot+stationSubmitPath);
 		}
 
-		public bool submitScoutData(){
+	public bool submitScoutData(double longitude, double latitude, double windSpeed, double windDirection){
 
+		ScoutDataCollector data = new ScoutDataCollector();
+		data.apiKey = this.apiKey;
+		data.dateTimeCollected = DateTime.Now;
+		data.windSpeed = windSpeed;
+		data.windDirection = windDirection;
+		data.longitude = longitude;
+		data.latitude = latitude;
+
+		WebRequest request = WebRequest.Create(apiRoot+scoutSubmitPath);
 
 			return true;
 		}
