@@ -4,6 +4,9 @@ using System.Collections;
 public class StreetRenderScript : MonoBehaviour {
 
 
+	private WindStreetScript parentZone;
+	private ApiCom api;
+
 	public void setStreetRender(float width, float direction){
 
 		float result = MyMaths.Remap(direction,0,360,360,0);
@@ -19,6 +22,9 @@ public class StreetRenderScript : MonoBehaviour {
 
 	void Start(){
 
+		api = new ApiCom();
+		parentZone = GetComponentInParent<WindStreetScript>();
+
 		//getting the perimiter points of zones-- dosnt translate to global world space yet
 		Invoke("outputPoints", 1);
 	}
@@ -30,4 +36,16 @@ public class StreetRenderScript : MonoBehaviour {
 		Debug.Log( points[0].ToString() + "," +points[1].ToString() + "," + points[2].ToString() + "," + points[3].ToString());
 
 	}
+
+	void OnMouseDown() {
+
+		Vector3 pos = Input.mousePosition;
+		pos.z = 10;
+		pos = Camera.main.ScreenToWorldPoint(pos);
+
+		api.submitScoutData(pos.x,pos.y,parentZone.getWindSpeed(),parentZone.getWindDirection());
+
+		Debug.Log("scout data fire in zone at:" + pos.ToString() );
+	}
+
 }

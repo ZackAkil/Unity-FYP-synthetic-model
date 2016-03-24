@@ -113,6 +113,16 @@ public class WindStreetScript : MonoBehaviour {
 
 	}
 
+	public double getWindSpeed(){
+
+		return windSpeed;
+	}
+
+	public double getWindDirection(){
+
+		return windDir;
+	}
+
 
 
 
