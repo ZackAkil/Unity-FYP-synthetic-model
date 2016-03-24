@@ -3,10 +3,12 @@ using System.Collections;
 
 public class ScoutDataCollectorScript : MonoBehaviour {
 
-	ApiCom api;
-	// Use this for initialization
+	private ApiCom api;
+	private GlobalWindScript globalWindScript;
+
 	void Start () {
 	
+		globalWindScript = GameObject.FindGameObjectWithTag("GlobalWind").GetComponent<GlobalWindScript>();
 		api = new ApiCom();
 	}
 	
@@ -21,7 +23,7 @@ public class ScoutDataCollectorScript : MonoBehaviour {
 		pos.z = 10;
 		pos = Camera.main.ScreenToWorldPoint(pos);
 
-		api.submitScoutData(pos.x,pos.y,15,150);
+		api.submitScoutData(pos.x,pos.y,globalWindScript.GetGlobalWindSpeed(),globalWindScript.GetGlobalWindDir());
 
 		Debug.Log("scout data fire at :" + pos.ToString() );
 	}

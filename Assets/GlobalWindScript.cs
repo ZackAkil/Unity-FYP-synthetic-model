@@ -17,6 +17,8 @@ public class GlobalWindScript : MonoBehaviour {
 
 		windDir = Random.value*360;
 
+		windSpeed = Random.value*50;
+
 		//Debug.Log("gwind: " + windDir);
 
 		transform.GetChild(0).GetComponent<windVisScript>().setArrow(windSpeed,windDir);
