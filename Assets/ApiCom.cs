@@ -50,5 +50,30 @@ using System.IO;
 			
 		return true;
 	}
+
+	public bool submitStationData(int zoneId, double windSpeed, double windDirection){
+
+		StationDataCollector data = new StationDataCollector();
+		data.apiKey = this.apiKey;
+		data.dateTimeCollected = DateTime.Now;
+		data.windSpeed = windSpeed;
+		data.windDirection = windDirection;
+		data.zoneId = zoneId;
+
+		WWWForm form = data.getPostData();
+
+		WWW postRequest = new WWW( apiRoot + stationSubmitPath, form );
+
+		if (!string.IsNullOrEmpty(postRequest.error)) {
+			Debug.Log(postRequest.error);
+		}
+		else {
+			Debug.Log("Finished submiting station data");
+		}
+
+		return true;
+	}
+
+
 }
 

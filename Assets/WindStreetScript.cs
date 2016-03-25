@@ -7,6 +7,8 @@ public class WindStreetScript : MonoBehaviour {
 
 	public string logFileName = "windZone1.csv";
 	public bool logDataToFile = true;
+	public bool isPredicted;
+	public int stationId;
 
 	public int streetDirection = 0; // 0 - 180
 	public int streetWidth = 5; // 0 - 50
@@ -14,14 +16,22 @@ public class WindStreetScript : MonoBehaviour {
 	private float windSpeed;
 	private float windDir;
 
+	private ApiCom api;
+
 	private GlobalWindScript globalWindScript;
 
 	public float dataUpdateRate = 3.0f; // seconds
 
 	void Start () {
 
+		api = new ApiCom();
+
 		// set wind script object 
 		globalWindScript = GameObject.FindGameObjectWithTag("GlobalWind").GetComponent<GlobalWindScript>();
+
+		if(!isPredicted){
+			InvokeRepeating("UploadStationData", 0.3f, dataUpdateRate);
+		}
 
 		// set update rate of zones data
 		InvokeRepeating("UpdateWindData", 0.1f, dataUpdateRate);
@@ -99,6 +109,13 @@ public class WindStreetScript : MonoBehaviour {
 
 		return MyMaths.mod((sig1 + sig2 + sig3 - 180f + streetDir),360f);
 
+
+	}
+
+	private void UploadStationData(){
+
+
+		api.submitStationData(stationId,windSpeed,windDir);
 
 	}
 
