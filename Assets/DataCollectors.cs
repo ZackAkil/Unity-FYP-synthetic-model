@@ -4,56 +4,40 @@ using UnityEngine;
 
 public abstract class DataCollector
 {
-	public DateTime dateTimeCollected { get; set; }
-	public string apiKey { get; set; }
-	public double windSpeed { get; set; }
-	public double windDirection { get; set; }
-	
-	protected WWWForm getBasePostData(){
-	
-		WWWForm formData = new WWWForm();
-
-		formData.AddField( "apiKey", this.apiKey );
-		formData.AddField( "dateTimeCollected", this.dateTimeCollected.ToString() );
-		formData.AddField( "windSpeed", this.windSpeed.ToString() );
-		formData.AddField( "windDirection", this.windDirection.ToString());
-
-		return formData;
-	}
-
-	public abstract WWWForm getPostData();
+	public DateTime dateTimeCollected;
+	public string apiKey;
+	public string[] dataLables;
+	public double[] dataValues;
 }
 
 
 public class ScoutDataCollector : DataCollector
 {
-	public double longitude { get; set; }
-	public double latitude { get; set; }
+	public double longitude;
+	public double latitude;
 
-	public override  WWWForm getPostData(){
+	public ScoutDataCollector(double longitude, double latitude, double windSpeed, double windDirection){
 
-		WWWForm formData = getBasePostData();
-
-		formData.AddField( "longitude", this.longitude.ToString() );
-		formData.AddField( "latitude", this.latitude.ToString() );
-
-		return formData;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.dataLables = new string[]{"windSpeed","windDirection"}; 
+		this.dataValues = new double[]{windSpeed,windDirection}; 
+		this.dateTimeCollected = DateTime.Now;
 	}
 }
 
 
 public class StationDataCollector : DataCollector
 {
-	public int zoneId { get; set; }
+	public int zoneId;
 
-	public override  WWWForm getPostData(){
+	public StationDataCollector(int zoneId, double windSpeed, double windDirection){
 
-		WWWForm formData = getBasePostData();
-
-		formData.AddField( "zoneId", this.zoneId.ToString() );
-
-		return formData;
-	}
+		this.zoneId = zoneId;
+		this.dataLables = new string[]{"windSpeed","windDirection"}; 
+		this.dataValues = new double[]{windSpeed,windDirection}; 
+		this.dateTimeCollected = DateTime.Now;
+	}		
 }
 
 
