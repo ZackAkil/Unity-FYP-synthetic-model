@@ -29,9 +29,9 @@ public class WindStreetScript : MonoBehaviour {
 		// set wind script object 
 		globalWindScript = GameObject.FindGameObjectWithTag("GlobalWind").GetComponent<GlobalWindScript>();
 
-		if(!isPredicted){
-			InvokeRepeating("UploadStationData", 0.3f, dataUpdateRate);
-		}
+
+		InvokeRepeating("UploadStationData", 0.3f, dataUpdateRate);
+
 
 		// set update rate of zones data
 		InvokeRepeating("UpdateWindData", 0.1f, dataUpdateRate);
@@ -114,8 +114,11 @@ public class WindStreetScript : MonoBehaviour {
 
 	private void UploadStationData(){
 
-
-		api.SubmitStationData(new StationDataCollector(stationId,windSpeed,windDir));
+		if(isPredicted){
+			api.SubmitScoutData(new ScoutDataCollector(transform.position.x,transform.position.y,windSpeed,windDir));
+		}else{
+			api.SubmitStationData(new StationDataCollector(stationId,windSpeed,windDir));
+		}
 
 	}
 

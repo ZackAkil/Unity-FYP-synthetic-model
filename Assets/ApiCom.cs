@@ -34,6 +34,7 @@ public class ApiCom
 
 
 		Debug.Log (apiRoot + stationSubmitPath);
+		Debug.Log (apiRoot + scoutSubmitPath);
 	}
 
 	public bool SubmitScoutData (ScoutDataCollector data)
@@ -45,7 +46,7 @@ public class ApiCom
 	public bool SubmitStationData (StationDataCollector data)
 	{
 
-		SubmitDataCollectorToUrl (data, apiRoot + stationSubmitPath);
+		//SubmitDataCollectorToUrl (data, apiRoot + stationSubmitPath);
 
 		return true;
 	}
@@ -65,7 +66,7 @@ public class ApiCom
 		postHeader.Add ("Content-Length", jsonData.Length.ToString ());
 
 
-		WWW postRequest = new WWW (apiRoot + stationSubmitPath, encoding.GetBytes (jsonData), postHeader);
+		WWW postRequest = new WWW (url, encoding.GetBytes (jsonData), postHeader);
 
 		if (!string.IsNullOrEmpty (postRequest.error)) {
 			Debug.Log (postRequest.error);
