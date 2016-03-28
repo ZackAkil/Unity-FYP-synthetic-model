@@ -46,8 +46,7 @@ public class ApiCom
 	public bool SubmitStationData (StationDataCollector data)
 	{
 
-		//SubmitDataCollectorToUrl (data, apiRoot + stationSubmitPath);
-
+		SubmitDataCollectorToUrl (data, apiRoot + stationSubmitPath);
 		return true;
 	}
 
