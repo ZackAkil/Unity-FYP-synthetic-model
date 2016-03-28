@@ -43,7 +43,7 @@ public class StreetRenderScript : MonoBehaviour {
 		pos.z = 10;
 		pos = Camera.main.ScreenToWorldPoint(pos);
 
-		api.submitScoutData(pos.x,pos.y,parentZone.getWindSpeed(),parentZone.getWindDirection());
+		api.SubmitScoutData( new ScoutDataCollector( pos.x,pos.y,parentZone.getWindSpeed(),parentZone.getWindDirection()));
 
 		Debug.Log("scout data fire in zone at:" + pos.ToString() );
 	}

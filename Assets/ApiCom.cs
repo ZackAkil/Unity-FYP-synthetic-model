@@ -9,97 +9,69 @@ using System.Collections;
 
 
 
-	public class ApiCom
+public class ApiCom
+{
+
+	public string configFileName = "api_config.xml";
+	private string apiKey;
+	private string apiRoot;
+	private string stationSubmitPath;
+	private string scoutSubmitPath;
+
+	private UTF8Encoding encoding;
+
+
+	public ApiCom ()
 	{
 
-		public string configFileName ="api_config.xml";
-		private string apiKey;
-		private string apiRoot;
-		private string stationSubmitPath;
-		private string scoutSubmitPath;
+		XElement doc = XDocument.Load (configFileName).Element (XName.Get ("apiConfig"));
+		apiKey = doc.Element (XName.Get ("apiKey")).Value;
+		apiRoot = doc.Element (XName.Get ("apiRoot")).Value;
+		stationSubmitPath = doc.Element (XName.Get ("stationSubmitPath")).Value;
+		scoutSubmitPath = doc.Element (XName.Get ("scoutSubmitPath")).Value;
 
-		public ApiCom (){
+		encoding = new System.Text.UTF8Encoding ();
 
-			XElement doc = XDocument.Load(configFileName).Element(XName.Get("apiConfig"));
-			apiKey = doc.Element(XName.Get("apiKey")).Value;
-			apiRoot = doc.Element(XName.Get("apiRoot")).Value;
-			stationSubmitPath = doc.Element(XName.Get("stationSubmitPath")).Value;
-			scoutSubmitPath = doc.Element(XName.Get("scoutSubmitPath")).Value;
 
-			Debug.Log(apiRoot+stationSubmitPath);
-		}
+		Debug.Log (apiRoot + stationSubmitPath);
+	}
 
-	public bool submitScoutData(double longitude, double latitude, double windSpeed, double windDirection){
-
-//		ScoutDataCollector data = new ScoutDataCollector();
-//		data.apiKey = this.apiKey;
-//		data.dateTimeCollected = DateTime.Now;
-//		data.windSpeed = windSpeed;
-//		data.windDirection = windDirection;
-//		data.longitude = longitude;
-//		data.latitude = latitude;
-//
-//		WWWForm form = data.getPostData();
-//
-//		WWW postRequest = new WWW( apiRoot + scoutSubmitPath, form );
-//
-//		if (!string.IsNullOrEmpty(postRequest.error)) {
-//			Debug.Log(postRequest.error);
-//		}
-//		else {
-//			Debug.Log("Finished submiting scout data");
-//		}
-			
+	public bool SubmitScoutData (ScoutDataCollector data)
+	{
+		SubmitDataCollectorToUrl (data, apiRoot + scoutSubmitPath);
 		return true;
 	}
 
-	public bool submitStationData(int zoneId, double windSpeed, double windDirection){
+	public bool SubmitStationData (StationDataCollector data)
+	{
 
-//		StationDataCollector data = new StationDataCollector();
-//		data.apiKey = this.apiKey;
-//		data.dateTimeCollected = DateTime.Now;
-//		data.windSpeed = windSpeed;
-//		data.windDirection = windDirection;
-//		data.zoneId = zoneId;
-//
-//		WWWForm form = data.getPostData();
-//
-//		WWW postRequest = new WWW( apiRoot + stationSubmitPath, form );
-//
-//		if (!string.IsNullOrEmpty(postRequest.error)) {
-//			Debug.Log(postRequest.error);
-//		}
-//		else {
-//			Debug.Log("Finished submiting station data");
-//		}
+		SubmitDataCollectorToUrl (data, apiRoot + stationSubmitPath);
 
 		return true;
 	}
 
-	public bool submitStationDataJson(StationDataCollector data){
 
-	
+	private bool SubmitDataCollectorToUrl (DataCollector data, string url)
+	{
+
 		data.apiKey = this.apiKey;
+		string jsonData = JsonUtility.ToJson (data);
+		Debug.Log (jsonData);
 
-		string jsonData = JsonUtility.ToJson(data);
+		var postHeader = new System.Collections.Generic.Dictionary<string, string> ();
 
-		Debug.Log(jsonData);
-	
-		var encoding = new System.Text.UTF8Encoding();
-		System.Collections.Generic.Dictionary<string, string> postHeader = new System.Collections.Generic.Dictionary<string, string>();
+		postHeader.Add ("Content-Type", "text/json");
+		postHeader.Add ("Content-Length", jsonData.Length.ToString ());
 
-		postHeader.Add("Content-Type", "text/json");
-		postHeader.Add("Content-Length", jsonData.Length.ToString());
 
-		WWW postRequest = new WWW( apiRoot + stationSubmitPath,  encoding.GetBytes(jsonData), postHeader );
+		WWW postRequest = new WWW (apiRoot + stationSubmitPath, encoding.GetBytes (jsonData), postHeader);
 
-		if (!string.IsNullOrEmpty(postRequest.error)) {
-			Debug.Log(postRequest.error);
+		if (!string.IsNullOrEmpty (postRequest.error)) {
+			Debug.Log (postRequest.error);
+		} else {
+			Debug.Log ("Finished submiting station data");
 		}
-		else {
-			Debug.Log("Finished submiting station data");
-		}
-
+			
 		return true;
 	}
 

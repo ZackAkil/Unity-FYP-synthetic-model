@@ -23,7 +23,7 @@ public class ScoutDataCollectorScript : MonoBehaviour {
 		pos.z = 10;
 		pos = Camera.main.ScreenToWorldPoint(pos);
 
-		api.submitScoutData(pos.x,pos.y,globalWindScript.GetGlobalWindSpeed(),globalWindScript.GetGlobalWindDir());
+		api.SubmitScoutData( new ScoutDataCollector( pos.x,pos.y,globalWindScript.GetGlobalWindSpeed(),globalWindScript.GetGlobalWindDir()));
 
 		Debug.Log("scout data fire at :" + pos.ToString() );
 	}

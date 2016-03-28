@@ -115,7 +115,7 @@ public class WindStreetScript : MonoBehaviour {
 	private void UploadStationData(){
 
 
-		api.submitStationDataJson(new StationDataCollector(stationId,windSpeed,windDir));
+		api.SubmitStationData(new StationDataCollector(stationId,windSpeed,windDir));
 
 	}
 
