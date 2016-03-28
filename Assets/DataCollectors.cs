@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class DataCollector
 {
-	public DateTime dateTimeCollected;
+	public string dateTimeCollected;
 	public string apiKey;
 	public string[] dataLables;
 	public double[] dataValues;
@@ -20,9 +20,9 @@ public class ScoutDataCollector : DataCollector
 
 		this.longitude = longitude;
 		this.latitude = latitude;
-		this.dataLables = new string[]{"windSpeed","windDirection"}; 
+		this.dataLables = new string[]{"wind speed","wind direction"}; 
 		this.dataValues = new double[]{windSpeed,windDirection}; 
-		this.dateTimeCollected = DateTime.Now;
+		this.dateTimeCollected = DateTime.Now.ToString();
 	}
 }
 
@@ -34,9 +34,9 @@ public class StationDataCollector : DataCollector
 	public StationDataCollector(int zoneId, double windSpeed, double windDirection){
 
 		this.zoneId = zoneId;
-		this.dataLables = new string[]{"windSpeed","windDirection"}; 
+		this.dataLables = new string[]{"wind speed","wind direction"}; 
 		this.dataValues = new double[]{windSpeed,windDirection}; 
-		this.dateTimeCollected = DateTime.Now;
+		this.dateTimeCollected = DateTime.Now.ToString();
 	}		
 }
 

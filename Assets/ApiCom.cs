@@ -55,6 +55,7 @@ public class ApiCom
 	{
 
 		data.apiKey = this.apiKey;
+
 		string jsonData = JsonUtility.ToJson (data);
 		Debug.Log (jsonData);
 
@@ -77,4 +78,8 @@ public class ApiCom
 
 
 }
+
+
+
+
 
