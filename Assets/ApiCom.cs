@@ -17,6 +17,7 @@ public class ApiCom
 	private string apiRoot;
 	private string stationSubmitPath;
 	private string scoutSubmitPath;
+	private string predictPath;
 
 	private UTF8Encoding encoding;
 
@@ -29,9 +30,10 @@ public class ApiCom
 		apiRoot = doc.Element (XName.Get ("apiRoot")).Value;
 		stationSubmitPath = doc.Element (XName.Get ("stationSubmitPath")).Value;
 		scoutSubmitPath = doc.Element (XName.Get ("scoutSubmitPath")).Value;
+		predictPath = doc.Element (XName.Get ("predictionPath")).Value;
+
 
 		encoding = new System.Text.UTF8Encoding ();
-
 
 		Debug.Log (apiRoot + stationSubmitPath);
 		Debug.Log (apiRoot + scoutSubmitPath);
@@ -49,7 +51,6 @@ public class ApiCom
 		SubmitDataCollectorToUrl (data, apiRoot + stationSubmitPath);
 		return true;
 	}
-
 
 	private bool SubmitDataCollectorToUrl (DataCollector data, string url)
 	{
@@ -76,6 +77,11 @@ public class ApiCom
 		return true;
 	}
 
+	public float GetWindDirectionPrediction(int predictedZoneId){
+
+		//send josn get request for prediction
+
+	}
 
 }
 
