@@ -12,6 +12,13 @@ using System.Collections;
 public class ApiCom
 {
 
+	private class PredictResponse
+	{
+		public double value;
+		public DateTime latestDataUsed;
+	}
+
+
 	public string configFileName = "api_config.xml";
 	private string apiKey;
 	private string apiRoot;
@@ -77,9 +84,32 @@ public class ApiCom
 		return true;
 	}
 
-	public float GetWindDirectionPrediction(int predictedZoneId){
+	public double GetPrediction(int predictedZoneId, string dataSubject){
 
-		//send josn get request for prediction
+		WebRequest request = WebRequest.Create (apiRoot+predictPath
+			+"?id="+predictedZoneId.ToString()
+			+"&dataSubject="+ WWW.EscapeURL(dataSubject)
+			+"&apiKey="+apiKey);
+		
+		// If required by the server, set the credentials.
+		request.Credentials = CredentialCache.DefaultCredentials;
+		// Get the response.
+		WebResponse response = request.GetResponse ();
+		// Display the status.
+		Debug.Log (((HttpWebResponse)response).StatusDescription);
+		// Get the stream containing content returned by the server.
+		Stream dataStream = response.GetResponseStream ();
+		// Open the stream using a StreamReader for easy access.
+		StreamReader reader = new StreamReader (dataStream);
+		// Read the content.
+		string responseFromServer = reader.ReadToEnd ();
+
+		PredictResponse output = JsonUtility.FromJson<PredictResponse>(responseFromServer);
+
+		reader.Close ();
+		response.Close ();
+
+		return output.value;
 
 	}
 
