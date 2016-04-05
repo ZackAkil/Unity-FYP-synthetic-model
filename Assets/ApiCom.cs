@@ -14,7 +14,7 @@ public class ApiCom
 
 	private class PredictResponse
 	{
-		public double value;
+		public float value;
 		public DateTime latestDataUsed;
 	}
 
@@ -84,7 +84,7 @@ public class ApiCom
 		return true;
 	}
 
-	public double GetPrediction(int predictedZoneId, string dataSubject){
+	public float GetPrediction(int predictedZoneId, string dataSubject){
 
 		WebRequest request = WebRequest.Create (apiRoot+predictPath
 			+"?id="+predictedZoneId.ToString()
