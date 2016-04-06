@@ -7,17 +7,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections;
 
-
+public class PredictResponse
+{
+	public float value;
+	public string latestDataUsed;
+}
 
 public class ApiCom
 {
-
-	private class PredictResponse
-	{
-		public float value;
-		public DateTime latestDataUsed;
-	}
-
 
 	public string configFileName = "api_config.xml";
 	private string apiKey;
@@ -84,7 +81,7 @@ public class ApiCom
 		return true;
 	}
 
-	public float GetPrediction(int predictedZoneId, string dataSubject){
+	public PredictResponse GetPrediction(int predictedZoneId, string dataSubject){
 
 		WebRequest request = WebRequest.Create (apiRoot+predictPath
 			+"?id="+predictedZoneId.ToString()
@@ -106,12 +103,16 @@ public class ApiCom
 
 		PredictResponse output = JsonUtility.FromJson<PredictResponse>(responseFromServer);
 
+		Debug.Log("prediction form server age = " + output.value + " - " + output.latestDataUsed);
+
 		reader.Close ();
 		response.Close ();
 
-		return output.value;
+		return output;
 
 	}
+		
+
 
 }
 
