@@ -11,7 +11,7 @@ public class zonePredictionScript : MonoBehaviour {
 	
 		api = new ApiCom();
 		// start recurring meathode call for fetching a apply prediction value to wind data vis child object
-		InvokeRepeating("updateWindVis", 1.5f, dataUpdateRate);
+		InvokeRepeating("updateWindVis", 3f, dataUpdateRate);
 	}
 
 

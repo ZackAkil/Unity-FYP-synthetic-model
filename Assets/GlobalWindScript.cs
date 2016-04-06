@@ -5,10 +5,11 @@ public class GlobalWindScript : MonoBehaviour {
 
 	public float windSpeed = 50;
 	public float windDir = 0;
+	public int dataUpdateRate = 3;
 
 	void Start () {
 
-		InvokeRepeating("ChangeWind", 0f, 3.0f);
+		InvokeRepeating("ChangeWind", 0f, dataUpdateRate);
 
 	
 	}
