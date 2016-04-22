@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 
 	public class MyMaths 
@@ -14,20 +15,20 @@ using System.Collections;
 			return r<0 ? r+m : r;
 		}
 
-		public static float DegreeToRadian(float angle)
+		public static double DegreeToRadian(double angle)
 		{
-			return Mathf.PI * angle / 180.0f;
+			return Mathf.PI * angle / 180.0;
 		}
 
-		public static float RadianToDegree(float angle)
+		public static double RadianToDegree(double angle)
 		{
-			return angle * (180.0f / Mathf.PI);
+			return angle * (180.0 / Mathf.PI);
 		}
 
 		public static float SinCosToDegrees(float sin, float cos ){
 
 			float convert = Mathf.Atan2(sin, cos);
-			return (mod(RadianToDegree(convert), 360));
+		return (mod( Convert.ToSingle(RadianToDegree(convert)), 360));
 		}
 
 
