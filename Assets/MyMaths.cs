@@ -14,6 +14,22 @@ using System.Collections;
 			return r<0 ? r+m : r;
 		}
 
+		public static float DegreeToRadian(float angle)
+		{
+			return Mathf.PI * angle / 180.0f;
+		}
+
+		public static float RadianToDegree(float angle)
+		{
+			return angle * (180.0f / Mathf.PI);
+		}
+
+		public static float SinCosToDegrees(float sin, float cos ){
+
+			float convert = Mathf.Atan2(sin, cos);
+			return (mod(RadianToDegree(convert), 360));
+		}
+
 
 		/// <summary>
 		/// Easing equation function for an elastic (exponentially decaying sine wave) easing out: 

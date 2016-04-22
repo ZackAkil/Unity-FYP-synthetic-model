@@ -22,6 +22,7 @@ public class ApiCom
 	private string stationSubmitPath;
 	private string scoutSubmitPath;
 	private string predictPath;
+	private string performancePath;
 
 	private UTF8Encoding encoding;
 
@@ -35,7 +36,7 @@ public class ApiCom
 		stationSubmitPath = doc.Element (XName.Get ("stationSubmitPath")).Value;
 		scoutSubmitPath = doc.Element (XName.Get ("scoutSubmitPath")).Value;
 		predictPath = doc.Element (XName.Get ("predictionPath")).Value;
-
+		performancePath = doc.Element (XName.Get ("performancePath")).Value;
 
 		encoding = new System.Text.UTF8Encoding ();
 
