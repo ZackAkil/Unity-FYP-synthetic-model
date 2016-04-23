@@ -9,6 +9,7 @@ public class WindStreetScript : MonoBehaviour {
 	public bool logDataToFile = true;
 	public bool isPredicted;
 	public int stationId;
+	public bool uploadDataToApi;
 
 	public int streetDirection = 0; // 0 - 180
 	public int streetWidth = 5; // 0 - 50
@@ -20,7 +21,7 @@ public class WindStreetScript : MonoBehaviour {
 
 	private GlobalWindScript globalWindScript;
 
-	public float dataUpdateRate = 3.0f; // seconds
+	private int dataUpdateRate; // seconds
 
 	void Start () {
 
@@ -29,8 +30,10 @@ public class WindStreetScript : MonoBehaviour {
 		// set wind script object 
 		globalWindScript = GameObject.FindGameObjectWithTag("GlobalWind").GetComponent<GlobalWindScript>();
 
+		dataUpdateRate = globalWindScript.dataUpdateRate;
 
-		InvokeRepeating("UploadStationData", 0.3f, dataUpdateRate);
+		if(uploadDataToApi)
+		InvokeRepeating("UploadData", 0.3f, dataUpdateRate);
 
 
 		// set update rate of zones data
@@ -112,7 +115,7 @@ public class WindStreetScript : MonoBehaviour {
 
 	}
 
-	private void UploadStationData(){
+	private void UploadData(){
 
 		if(isPredicted){
 			api.SubmitScoutData(new ScoutDataCollector(transform.position.x,transform.position.y,windSpeed,windDir));

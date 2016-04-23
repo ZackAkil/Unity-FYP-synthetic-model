@@ -5,8 +5,11 @@ using System;
 public class zonePredictionScript : MonoBehaviour {
 
 	public int dataUpdateRate = 3;
-	private ApiCom api;
+
 	public int zoneId;
+	public bool getPrediction;
+
+	private ApiCom api;
 	private DateTime predictionAge;
 
 	private SpriteRenderer arrow;
@@ -15,12 +18,17 @@ public class zonePredictionScript : MonoBehaviour {
 	
 		predictionAge = DateTime.Now;
 		api = new ApiCom();
+		arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		// start recurring meathode call for fetching a apply prediction value to wind data vis child object
-		InvokeRepeating("updateWindVis", 3f, dataUpdateRate);
+
+		if(getPrediction)
+			InvokeRepeating("updateWindVis", 3f, dataUpdateRate);
+		else
+			arrow.enabled = false;		
 
 		InvokeRepeating("updateArrowColor", 0f, 0.2f);
 
-		arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
+
 	}
 
 	void updateArrowColor(){
