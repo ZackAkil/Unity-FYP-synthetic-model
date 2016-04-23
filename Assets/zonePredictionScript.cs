@@ -46,12 +46,28 @@ public class zonePredictionScript : MonoBehaviour {
 
 	float getPredictionOfWindDirection(){
 
-		PredictResponse predictedDir = api.GetPrediction(zoneId, "wind direction");
-		Debug.Log("prediction = " + predictedDir.ToString());
-		predictionAge = Convert.ToDateTime(predictedDir.latestDataUsed);
+		PredictResponse predictedDirSin = api.GetPrediction(zoneId, "sin wind direction");
+		Debug.Log("prediction = " + predictedDirSin.ToString());
+		DateTime sinAge = Convert.ToDateTime(predictedDirSin.latestDataUsed);
+
 
 		Debug.Log("prediction age  = "+predictionAge.ToString() +" - "+  (DateTime.Now.Second - predictionAge.Second).ToString());
-		return predictedDir.value;
+
+		PredictResponse predictedDirCos = api.GetPrediction(zoneId, "cos wind direction");
+		Debug.Log("prediction = " + predictedDirCos.ToString());
+		DateTime cosAge = Convert.ToDateTime(predictedDirCos.latestDataUsed);
+		Debug.Log("prediction age  = "+predictionAge.ToString() +" - "+  (DateTime.Now.Second - predictionAge.Second).ToString());
+
+		if (sinAge == cosAge){
+			predictionAge = sinAge;
+			arrow.color = new Color(1f, 1f, 0f); 
+		}else{
+			arrow.color = new Color(1f, 1f, 1f); 
+		}
+
+
+
+		return MyMaths.SinCosToDegrees(predictedDirSin.value, predictedDirCos.value);
 	}
 
 }
